@@ -1,7 +1,6 @@
 import { AccountType } from './enums';
 
 export abstract class BankAccount {
-
     private _balance: number = 0;
     id: number;
     title: string;

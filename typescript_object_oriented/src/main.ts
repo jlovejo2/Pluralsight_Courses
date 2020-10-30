@@ -21,7 +21,9 @@ class Main {
         this.savingsAccount = new SavingsAccount({
             id: 100,
             title: 'Jimmy Bob Savings',
-            balanc: 5000
+            balance: 5000,
+            interestRate: 2.5,
+
         })
 
         let html = this.renderAccounts();
@@ -74,10 +76,10 @@ class Main {
         let amount = +amountInput.value;
         let error;
         try{ if (deposit) {
-            this.checkingAccount.deposit(amount);
+            this.currentAccount.deposit(amount);
         }
         else {
-            this.checkingAccount.withdrawal(amount);
+            this.currentAccount.withdrawal(amount);
         }
     } catch (err) {
         error = err;
