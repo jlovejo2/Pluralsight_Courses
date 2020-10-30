@@ -111,3 +111,53 @@ class CheckingAccount extends BankAccount {
     }
   }
   ```
+
+  ### Interfaces and Polymorphism
+
+  - Role of Interfaces
+
+    - Act as a contract that defines a set of rules
+    - Can also be seen as creating a standard for the code
+    - Come in handy to enforce the standard on methods when they exist on different objects. So they are not connected classes.
+    - Also come in handy saying exactly what exists in object and holding it to that
+
+  - Class or Interface?
+
+    - Classes generate code that make it to production
+
+    - Interfaces are used solely in development.
+
+  - Creating an interface: below shows syntax
+
+  ```typescript
+  interface DepositWithdrawal {
+    routingNumber: number;
+
+    deposit(amount: number): void;
+    withdrawal(amount: number): void;
+  }
+  ```
+
+  - Example of using a generic with interface
+
+  ```Typescript
+  //This interface uses generics so that it can be used and the types of the routingNumber and bankNumber can vary depending on case usage
+  export interface AccountInfo<TRouteNumber, TBankNumber> {
+    routingNumber: TRouteNumber;
+    bankNumber: TBankNumber;
+  }
+
+  export interface AccountSettings {
+    id: number;
+    title: number;
+    balance: number;
+    interestRate?: number;
+    accountInfo?: AccountInfo<string ,number>
+  }
+  ```
+
+  - Using interfaces with Classes
+
+  ```typescript
+  class ATM implements DepositWithdrawal {}
+  ```

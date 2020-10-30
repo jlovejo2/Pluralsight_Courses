@@ -10,7 +10,7 @@ export interface DepositWithdrawal {
 
 export interface AccountSettings {
     id: number;
-    title: number;
+    title: string;
     balance: number;
     interestRate?: number;
     accountInfo?: AccountInfo<string ,number>
