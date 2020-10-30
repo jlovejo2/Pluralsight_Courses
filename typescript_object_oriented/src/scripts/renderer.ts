@@ -8,12 +8,15 @@ export class Renderer {
     //     this.viewTemplate.innerHTML = html;
     // }
 
-    private constructor() { }
+    constructor(private viewTemplate: HTMLDivElement) { 
+    this.viewTemplate.innerHTML = '<h2>Welcome to Acme Bank!</h2><br /><h5>Your Accounts:</h5><br />';
+    }
 
-    // static way
-    static viewTemplate: HTMLDivElement;
+    render(html: string) {
+        this.viewTemplate.innerHTML = html; 
+    }
 
-    static render(html: string) {
-        Renderer.viewTemplate.innerHTML = html; 
+    renderError(message: string) {
+        this.viewTemplate.innerHTML += `<br /><br /><div class="alert alert-danger">${message}</div>`
     }
 }
