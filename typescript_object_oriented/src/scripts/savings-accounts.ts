@@ -1,4 +1,4 @@
-import { Account, AccountInfo, AccountSettings } from './interfaces';
+import { AccountSettings } from './interfaces';
 import { BankAccount } from "./bank-account";
 import { AccountType } from './enums'; 
 
@@ -15,13 +15,6 @@ export class SavingsAccount extends BankAccount {
             this.addInterest();
         }, 60000);
 
-    }
-
-    getAccountInfo(): AccountInfo<number, number> {
-        return {
-            routingNumber: 123123123,
-            bankNumber: 234234234234
-        }
     }
 
     deposit(amount: number) {
