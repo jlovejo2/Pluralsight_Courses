@@ -11,7 +11,7 @@ class Main {
             title: 'Jimmy Bob Checking',
             balance: 500,
         });
-        
+
         this.renderAccount();
     }
 
@@ -47,7 +47,7 @@ class Main {
 // Create main object and add handlers for it
 // const renderer = new Renderer(document.querySelector('#viewTemplate'));
 Renderer.viewTemplate = document.querySelector('#viewTemplate');
-const main = new Main(/* renderer*/);
+const main = new Main(Renderer);
 
 // Quick and easy way to expose a global API that can hook to the Main object
 // so that we can get to it from click and events and others.

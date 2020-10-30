@@ -55,3 +55,23 @@ class Person {
 - Constructor is used when creating a new instance of seeding the object with the data
 
 - Static members you can only have one of these per application
+
+### Role of inheritance
+
+- inheritance provides a way to reuse code across class in a family heirarchy
+
+```typescript
+class BankAccount {
+  bankAccount: number;
+
+  constructor(id: number) {....}
+}
+
+class CheckingAccount extends BankAccount {
+  //use inheritance for a checking account which is a bank account to inherit the bankaccount class code
+
+  constructor(id: number) {
+    super(id); //required to bring the constructor info to the bankAccount
+  }
+}
+```

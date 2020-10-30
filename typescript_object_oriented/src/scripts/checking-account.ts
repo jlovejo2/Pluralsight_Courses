@@ -3,7 +3,7 @@
 export class CheckingAccount extends BankAccount{
 
     constructor(accountSettings: any) {
-        
+        super(accountSettings);
     }
 
 }
