@@ -1,3 +1,4 @@
+import { Constants } from "./constants";
 var BankAccount = /** @class */ (function () {
     function BankAccount(accountSettings) {
         this._balance = 0;
@@ -20,6 +21,12 @@ var BankAccount = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    BankAccount.prototype.getAccountInfo = function () {
+        return {
+            routingNumber: Constants.ROUTING_NUMBER,
+            bankNumber: Constants.BANK_NUMBER
+        };
+    };
     BankAccount.prototype.deposit = function (amount) {
         this._balance += amount;
     };

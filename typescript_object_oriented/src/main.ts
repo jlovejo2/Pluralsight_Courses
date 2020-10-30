@@ -20,12 +20,11 @@ class Main {
             this.checkingAccount = new CheckingAccount({...data.checkingAccount});
             this.savingsAccount = new SavingsAccount({...data.savingsAccount});
             this.atm = new ATM(this.checkingAccount)
-        
 
         let html = this.renderAccounts();
         this.renderer.render(`
         <h2>Welcome to Acme Bank!</h2><br />
-        <h5>Your Accounts:</h5><br/>'
+        <h5>Your Accounts:</h5><br/>
         ${html}`)
         }
 
@@ -73,6 +72,7 @@ class Main {
     }
 
     renderAccount(account: BankAccount) {
+        console.log('account stuff: ', account)
         const accountType = AccountType[account.accountType];
         const html = `
                 <h3>${accountType} Account</h3>
@@ -120,6 +120,7 @@ class Main {
 
 const renderer = new Renderer(document.querySelector('#viewTemplate'));
 const main = new Main(renderer);
+main.loadAccounts();
 
 // Quick and easy way to expose a global API that can hook to the Main object
 // so that we can get to it from click and events and others.

@@ -21,9 +21,9 @@ export abstract class BankAccount implements Account {
     set balance(value:number) {
         if (value >= 0) {
         this._balance = value;
-    } else {
+        } else {
         throw new Error('balance is zero! You need to figure out your budget.')
-    }
+        }
     } 
 
     getAccountInfo(): AccountInfo<string, number> {

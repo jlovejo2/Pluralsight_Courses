@@ -8,7 +8,7 @@ var Renderer = /** @class */ (function () {
     // }
     function Renderer(viewTemplate) {
         this.viewTemplate = viewTemplate;
-        this.viewTemplate.innerHTML = '<h2>Welcome to Acme Bank!</h2><br /><h5>Your Accounts:</h5><br />';
+        this.viewTemplate.innerHTML = "\n    <h2>Welcome to Acme Bank!</h2>\n    .........................................\n    <br /><h5>Your Accounts:</h5><br />";
     }
     Renderer.prototype.render = function (html) {
         this.viewTemplate.innerHTML = html;

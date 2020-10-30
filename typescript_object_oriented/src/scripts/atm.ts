@@ -1,9 +1,9 @@
-import { DepositWithdrawal } from './interfaces';
-import { BankAccount } from './bank-account';
+import { DepositWithdrawal, Account } from './interfaces';
 
 export class ATM implements DepositWithdrawal {
     
-    constructor(private account: BankAccount) {}
+    //using Account here creates a polymorphism situation
+    constructor(private account: Account) {}
 
     deposit (amount: number): void {
         this.account.deposit(amount)

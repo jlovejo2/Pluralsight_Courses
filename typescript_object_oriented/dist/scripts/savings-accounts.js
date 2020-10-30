@@ -20,16 +20,15 @@ var SavingsAccount = /** @class */ (function (_super) {
         //passing accountSettings into the bankAccount class of instance
         _super.call(this, accountSettings) || this;
         _this.accountType = AccountType.Savings;
-        _this._interestRate = accountSettings._interestRate;
+        _this._interestRate = accountSettings.interestRate;
         setInterval(function () {
             _this.addInterest();
         }, 60000);
         return _this;
     }
-    SavingsAccount.prototype.getAccountInfo = function () {
-        return {
-            routing: 'routing number ....'
-        };
+    SavingsAccount.prototype.deposit = function (amount) {
+        var newAmmount = amount + (amount * (this._interestRate / 100));
+        this.balance += newAmmount;
     };
     SavingsAccount.prototype.addInterest = function () {
         this.balance = this.balance + this.balance * (this._interestRate / 100);

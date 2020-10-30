@@ -14,14 +14,9 @@ var __extends = (this && this.__extends) || (function () {
 import { BankAccount } from "./bank-account";
 var CheckingAccount = /** @class */ (function (_super) {
     __extends(CheckingAccount, _super);
-    function CheckingAccount(accountSettings) {
-        return _super.call(this, accountSettings) || this;
+    function CheckingAccount() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    CheckingAccount.prototype.getAccountInfo = function () {
-        return {
-            routing: 'routing number ...'
-        };
-    };
     return CheckingAccount;
 }(BankAccount));
 export { CheckingAccount };
