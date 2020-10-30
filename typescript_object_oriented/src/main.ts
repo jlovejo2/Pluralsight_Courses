@@ -23,7 +23,6 @@ class Main {
             title: 'Jimmy Bob Savings',
             balance: 5000,
             interestRate: 2.5,
-
         })
 
         let html = this.renderAccounts();

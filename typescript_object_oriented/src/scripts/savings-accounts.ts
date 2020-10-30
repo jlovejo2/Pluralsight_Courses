@@ -8,7 +8,7 @@ export class SavingsAccount extends BankAccount {
     constructor(accountSettings: any) {
         //passing accountSettings into the bankAccount class of instance
         super(accountSettings);
-        this._interestRate = accountSettings._interestRate;
+        this._interestRate = accountSettings.interestRate;
     
         setInterval(() => {
             this.addInterest();
@@ -20,6 +20,11 @@ export class SavingsAccount extends BankAccount {
         return {
             routing: 'routing number ....'
         }
+    }
+
+    deposit(amount: number) {
+        let newAmmount = amount + (amount * (this._interestRate / 100 ))
+        this.balance += newAmmount;
     }
 
     private addInterest() {
