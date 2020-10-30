@@ -1,22 +1,10 @@
-﻿export class CheckingAccount {
-    private _balance: number = 0;
+﻿import { BankAccount } from "./bank-account";
 
-    constructor(public title: string) { }
+export class CheckingAccount extends BankAccount{
 
-    get balance() {
-        return this._balance
+    constructor(accountSettings: any) {
+        
     }
 
-    set balance(value:number) {
-        this._balance = value;
-    }
-
-    deposit(amount: number) {
-        this._balance += amount;
-    }
-
-    withdrawal(amount: number) {
-        this.balance -= amount;
-    }
 }
 
