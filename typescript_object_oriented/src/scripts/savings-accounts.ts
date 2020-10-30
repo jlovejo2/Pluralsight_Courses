@@ -1,3 +1,4 @@
+import { Account, AccountInfo, AccountSettings } from './interfaces';
 import { BankAccount } from "./bank-account";
 import { AccountType } from './enums'; 
 
@@ -5,7 +6,7 @@ export class SavingsAccount extends BankAccount {
     private _interestRate: number;
     accountType = AccountType.Savings;
 
-    constructor(accountSettings: any) {
+    constructor(accountSettings: AccountSettings) {
         //passing accountSettings into the bankAccount class of instance
         super(accountSettings);
         this._interestRate = accountSettings.interestRate;
@@ -16,9 +17,10 @@ export class SavingsAccount extends BankAccount {
 
     }
 
-    getAccountInfo() {
+    getAccountInfo(): AccountInfo<number, number> {
         return {
-            routing: 'routing number ....'
+            routingNumber: 123123123,
+            bankNumber: 234234234234
         }
     }
 

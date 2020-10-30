@@ -1,12 +1,13 @@
+import { Account, AccountInfo, AccountSettings } from './interfaces';
 import { AccountType } from './enums';
 
-export abstract class BankAccount {
+export abstract class BankAccount implements Account {
     private _balance: number = 0;
     id: number;
     title: string;
     abstract accountType: AccountType;
 
-    constructor(accountSettings: any) { 
+    constructor(accountSettings: AccountSettings) { 
         this.id = accountSettings.id;
         this.title = accountSettings.title;
         this.balance = accountSettings.balance;
@@ -24,7 +25,7 @@ export abstract class BankAccount {
     }
     } 
 
-    abstract getAccountInfo(): any
+    abstract getAccountInfo(): AccountInfo<number, number>
 
     deposit(amount: number) {
         this._balance += amount;
