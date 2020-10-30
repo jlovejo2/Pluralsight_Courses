@@ -4,29 +4,59 @@ import { CheckingAccount } from './scripts/checking-account';
 import { AccountType } from './scripts/enums';
 import { Renderer } from './scripts/renderer';
 import { SavingsAccount } from './scripts/savings-accounts';
+import { ATM } from './scripts/atm';
 
 class Main {
     checkingAccount: CheckingAccount;
     savingsAccount: SavingsAccount;
     currentAccount: BankAccount;
+    atm: ATM;
 
-    constructor(private renderer: Renderer) {
-        // Create CheckingAccount instance
-        this.checkingAccount = new CheckingAccount({
-            id: 1,
-            title: 'Jimmy Bob Checking',
-            balance: 500,
-        });
+    constructor(private renderer: Renderer) { }
 
-        this.savingsAccount = new SavingsAccount({
-            id: 100,
-            title: 'Jimmy Bob Savings',
-            balance: 5000,
-            interestRate: 2.5,
-        })
+        async loadAccounts() {
+            const response = await fetch('/data.json');
+            const data = await response.json();
+            this.checkingAccount = new CheckingAccount({...data.checkingAccount});
+            this.savingsAccount = new SavingsAccount({...data.savingsAccount});
+            this.atm = new ATM(this.checkingAccount)
+        
 
         let html = this.renderAccounts();
-        this.renderer.render('<h2>Welcome to Acme Bank!</h2><br /><h5>Your Accounts:</h5><br/>' + html)
+        this.renderer.render(`
+        <h2>Welcome to Acme Bank!</h2><br />
+        <h5>Your Accounts:</h5><br/>'
+        ${html}`)
+        }
+
+    changeView(view?: string) {
+        switch(view) {
+            case 'checking':
+                this.currentAccount = this.checkingAccount;
+                break
+            case 'savings':
+                this.currentAccount = this.savingsAccount
+                break;
+            case 'atm':
+                this.currentAccount = this.checkingAccount;
+                this.renderAtm();
+                return;
+        }
+        this.renderAccount(this.currentAccount)
+    }
+
+    renderAtm() {
+        const html = `
+                <h3>ATM</h3>
+                <image src="src/images/atm.jpg" height="150">
+                <br /><br />
+                Current Checking Account Balance: $${this.checkingAccount.balance}
+                <br /><br />
+                $<input type="text" id="depositWithdrawalAmount">&nbsp;&nbsp;
+                <button onclick="main.depositWithDrawal(true, true)">Deposit</button>&nbsp;
+                <button onclick="main.depositWithDrawal(false, true)">Withdrawal</button>&nbsp;
+            `;
+        this.renderer.render(html);
     }
 
     renderAccounts() {
@@ -40,18 +70,6 @@ class Main {
         })
 
         return acctsHtml;
-    }
-
-    changeView(view?: string) {
-        switch(view) {
-            case 'checking':
-                this.currentAccount = this.checkingAccount;
-                break
-            case 'savings':
-                this.currentAccount = this.savingsAccount
-                break;
-        }
-        this.renderAccount(this.currentAccount)
     }
 
     renderAccount(account: BankAccount) {
@@ -70,24 +88,33 @@ class Main {
             this.renderer.render(html);
     }
 
-    depositWithDrawal(deposit: boolean) {
+    depositWithDrawal(deposit: boolean, atm?: boolean) {
         let amountInput: HTMLInputElement = document.querySelector('#depositWithdrawalAmount');
         let amount = +amountInput.value;
         let error;
-        try{ if (deposit) {
-            this.currentAccount.deposit(amount);
+        try{ 
+            if (deposit) {
+                if (atm) {
+                    this.atm.deposit(amount);
+                } else {
+                    this.currentAccount.deposit(amount);
+                }
+            } else {
+                if (atm) {
+                    this.atm.withdrawal(amount);
+                } else {
+                    this.currentAccount.withdrawal(amount);
+                }
+            }
+        } catch (err) {
+            error = err;
         }
-        else {
-            this.currentAccount.withdrawal(amount);
-        }
-    } catch (err) {
-        error = err;
-    }
-        this.renderAccount(this.currentAccount);
+
+        atm ? this.renderAtm(): this.renderAccount(this.currentAccount);
+        
         if(error) {
             this.renderer.renderError(error.message);
         }
-
     }
 }
 
