@@ -1,11 +1,11 @@
 import { AccountType } from './enums';
 
-export class BankAccount {
+export abstract class BankAccount {
 
     private _balance: number = 0;
     id: number;
     title: string;
-    accountType: AccountType;
+    abstract accountType: AccountType;
 
     constructor(accountSettings: any) { 
         this.id = accountSettings.id;
