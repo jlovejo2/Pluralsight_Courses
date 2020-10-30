@@ -93,3 +93,21 @@ class CheckingAccount extends BankAccount {
 
   }
   ```
+
+  - How to override members inherited from bank account.
+
+  ```typescript
+  abstract class BankAccount {
+    deposit(amount: string) {
+      this.balance = this.balance + amount;
+    }
+  }
+
+  //to override just recall in child class and rewrite code
+  class SavingsAccount {
+    deposit(amount: string) {
+      let newAmmount = amount + amount * (this._interestRate / 100);
+      this.balance += newAmmount;
+    }
+  }
+  ```
