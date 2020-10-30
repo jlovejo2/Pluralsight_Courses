@@ -4,9 +4,14 @@ import { Renderer } from './scripts/renderer';
 class Main {
     checkingAccount: CheckingAccount;
 
-    constructor(/* private renderer: Renderer */) {
+    constructor(private renderer: Renderer) {
         // Create CheckingAccount instance
-        this.checkingAccount = new CheckingAccount('Jimmy Bob');
+        this.checkingAccount = new CheckingAccount({
+            id: 1,
+            title: 'Jimmy Bob Checking',
+            balance: 500,
+        });
+        
         this.renderAccount();
     }
 
