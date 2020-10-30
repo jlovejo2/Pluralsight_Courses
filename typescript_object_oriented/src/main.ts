@@ -24,6 +24,9 @@ class Main {
         let html = this.renderAccounts();
         this.renderer.render(`
         <h2>Welcome to Acme Bank!</h2><br />
+        <image src="src/images/acmebank.jpg" height="150">
+        <br /><br />
+        <p>_______________________</p>
         <h5>Your Accounts:</h5><br/>
         ${html}`)
         }
@@ -76,7 +79,8 @@ class Main {
         const accountType = AccountType[account.accountType];
         const html = `
                 <h3>${accountType} Account</h3>
-                <br />
+                <image src="src/images/${accountType.toLowerCase()}.jpg" height="150">
+                <br /><br />
                 <span class="label">Owner:</span> ${account.title}
                 <br />
                 <span class="label">Balance:</span> $${account.balance.toFixed(2)}

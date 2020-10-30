@@ -22,6 +22,8 @@
 - modular architecture
 - more maintable code base
 
+##### Key Principles of Object-oriented programming
+
 - Abstraction
 - Encapsulation: hit start and everything will happen
 - Inheritance: objects can share functionality
