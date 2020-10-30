@@ -75,3 +75,21 @@ class CheckingAccount extends BankAccount {
   }
 }
 ```
+
+- Role of Abstract Class??
+
+  - if the class can instantiated it should be a normal/concrete class.
+  - if the class is a base for other classes and is only a foundation for instances of other classes. It should be Abstract class.
+
+  ```typescript
+  //how to create an abstract class
+  abstract class BankAccount {
+
+    // Abstract member (must be defined by child the inherits this class)
+    abstract accountType: AccountType;
+
+    // Concrete member
+    deposts () {...}
+
+  }
+  ```

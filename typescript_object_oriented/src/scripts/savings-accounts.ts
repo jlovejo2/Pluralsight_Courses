@@ -16,6 +16,12 @@ export class SavingsAccount extends BankAccount {
 
     }
 
+    getAccountInfo() {
+        return {
+            routing: 'routing number ....'
+        }
+    }
+
     private addInterest() {
         this.balance = this.balance + this.balance * (this._interestRate / 100 )
     }   

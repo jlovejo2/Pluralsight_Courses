@@ -25,6 +25,8 @@ export abstract class BankAccount {
     }
     } 
 
+    abstract getAccountInfo(): any
+
     deposit(amount: number) {
         this._balance += amount;
     }

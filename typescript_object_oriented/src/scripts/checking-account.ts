@@ -9,5 +9,11 @@ export class CheckingAccount extends BankAccount{
         super(accountSettings);
     }
 
+    getAccountInfo() {
+        return {
+            routing: 'routing number ...'
+        }
+    }
+
 }
 
