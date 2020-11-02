@@ -61,19 +61,82 @@
         </nav>
       </header>
 
-      <div class="main-section columns">
+      <div class='main-section columns'>
         <main class="column main-content">
-          <button id="bake-cookies" class="button is-primary">
-            Bake Cookies
+          <div class="columns content-title-group">
+            <div class='column'>
+              <h2 class='title'>Heroes</h2>
+              <div class='columns search-box'>
+                <div class='column field is-one-quarter'>
+                  <p class='control has-icons-left has-icons-right'>
+                    <input
+                    id='search-email'
+                    class='input'
+                    type='email'
+                    placeholder='Email'
+                    value='madelyn@acme.com'
+                    />
+                    <span class='icon is-small is-left'>
+                      <i class='fas fa-envelope'></i>
+                    </span>
+                  </p>
+                </div>
+                <button class='column button search-button is-narrow is-medium'>
+                  <i class='fas fa-search'></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class='hero-list'>
+            <!-- Hero Component rendered here -->
+          </div>
+          <button id='open-modal' class='button is-primary'>
+            Open Modal 
+          </button>
+          <button id='run-timer' class='button is-primary'>
+            Run Timer
           </button>
         </main>
       </div>
-      <div id="message-box" style="visibility: hidden" class="message is-info">
-        <h3 class="message-header"></h3>
-        <p class="message-body"></p>
+      <div id='message-box' style='visibility: hidden' class='message is-info'>
+        <h3 class='message-header'></h3>
+        <p class='message-body'></p>
       </div>
-    </div>
 
+      <div id='modal' class='modal'>
+        <div class='modal-background'></div>
+        <div class='modal-card'>
+          <header class='modal-card-head'>
+            <p class='modal-card-title'>Confirm</p>
+          </header>
+          <section class='modal-card-body'>Having fun?</section>
+          <footer class='modal-card-foot'>
+            <button class='button modal-no'>No</button>
+            <button class='button modal-yes is-primary'>Yes</button>
+          </footer>
+        </div>
+      </div>
+
+      <!-- begin templates -->
+
+    <template id='progress-template'>
+      <progress class='hero-list progress is-meidum is-info' max='100'></progress>
+    </template>
+
+    <template id='hero-template'>
+      <li>
+        <div class='card'>
+          <div class='card-content'>
+            <div class='content'>
+              <div class='name'></div>
+              <div class='description'></div>
+              <div class='email'></div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </template>
+    
     <script src="bundle.js"></script>
     <link rel="stylesheet" href="main.bundle.css" />
   </body>
