@@ -28,7 +28,7 @@ function createHeroCardFromTemplate(hero: Hero) {
     const heroClone = cloneElementsFromTemplate('hero-template');
     setText(heroClone, '.description', hero.description);
     setText(heroClone, '.name', hero.name);
-    setText(heroClone, '.emal', hero.email);
+    setText(heroClone, '.email', hero.email);
     heroClone.querySelector('.card').classList.add(hero.name);
     return heroClone;
 }

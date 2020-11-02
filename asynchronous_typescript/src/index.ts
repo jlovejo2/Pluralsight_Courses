@@ -35,6 +35,6 @@ async function render() {
     console.error(err)
     showMessage(err)
   } finally {
-    replaceHeroListComponent
+    replaceHeroListComponent(hero)
   }
 }
