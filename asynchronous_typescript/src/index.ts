@@ -1,33 +1,40 @@
 import './design/index.scss';
-import { showMessage } from './lib';
 
-document.querySelector('#bake-cookies').addEventListener('click', async () => {
-  bake();
+import { Hero, getHeroAsync, openModal, sayHelloTimer, showFetching, showMessage } from './lib';
+import { replaceHeroListComponent } from './heroes.component';
+
+const searchEmailElement = document.getElementById('search-email') as HTMLInputElement;
+const button = document.querySelector('.search-button')
+searchEmailElement.addEventListener('keydown', (e: KeyboardEvent) => {
+  if( e.code === 'Enter') render(); 
+})
+button.addEventListener('click', render);
+
+document.querySelector('#open-modal').addEventListener('click', async() => {
+  openModal().then((resp: string) => {
+    const msg = 
+    resp === 'yes'  
+    ? `Yay! This is fun! 😄`
+    : `Aw, that is sad. Let's try harder to have fun 😞`;
+
+    showMessage(msg, 'Response from Modal');
+  })
 });
 
-async function bake() {
-  const title = 'Baking cookies';
-  let counter = 0;
-  console.clear();
-  console.group(title);
+document.querySelector('#run-timer').addEventListener('click', async() => {
+  sayHelloTimer(10000);
+})
 
-  counter++;
-  console.log(`${counter} - Add ingredients`);
-  showMessage(`${counter} - Add ingredients`, title);
-
-  counter++;
-  console.log(`${counter} - Mix ingredients`);
-  showMessage(`${counter} - Mix ingredients`, title, true);
-
-  setTimeout(() => {
-    counter++;
-    console.log(`${counter} - Bake at 325 degrees for 10 minutes`);
-    showMessage(`${counter} - Bake at 325 degrees for 10 minutes`, title, true);
-  }, 1000);
-
-  counter++;
-  console.log(`${counter} - Eat cookies`);
-  showMessage(`${counter} - Eat cookies`, title, true);
-
-  console.groupEnd();
+async function render() {
+  showMessage()
+  showFetching('.hero-list');
+  let hero: Hero;
+  try {
+    hero = await getHeroAsync(searchEmailElement.value);
+  } catch(err) {
+    console.error(err)
+    showMessage(err)
+  } finally {
+    replaceHeroListComponent
+  }
 }

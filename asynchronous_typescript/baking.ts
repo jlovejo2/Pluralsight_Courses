@@ -41,6 +41,8 @@ function mix(bowl: object): object {
 
 function bake(cookieSheet: {batter: any, temp: number, minutes: number}, cb: (cookies: any) => void) {
     const cookies: any[] = [];
+
+    //callback function says this is what should be down when baking function is complete
     cb(cookies);
 }
 
