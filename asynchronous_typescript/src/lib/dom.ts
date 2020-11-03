@@ -29,7 +29,7 @@ export function showMessage(text = '', title = 'Info', append = false) {
 
   let newText = text;
   if (append) {
-    let oldText = getText(el, '.message-body');
+    const oldText = getText(el, '.message-body');
     newText = `${oldText}\r\n${text}`;
   }
 

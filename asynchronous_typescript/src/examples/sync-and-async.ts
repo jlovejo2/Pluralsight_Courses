@@ -2,12 +2,12 @@ import { showMessage } from '../lib';
 import { ingredients } from './ingredients';
 
 export function forEachExample() {
-  const index = 0;
+  let index = 0;
   ingredients.forEach(name => {
-    index;
+    index++;
+    showMessage(`${index} - ${name}`);
+    console.log(`${index} - ${name}`);
   });
-  showMessage(`${index} - ${name}`);
-  console.log(`${index} - ${name}`);
 }
 
 export function setTimeoutExample() {
