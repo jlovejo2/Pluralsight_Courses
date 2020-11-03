@@ -130,27 +130,36 @@ function rejectedPromiseShorter() {
 
 async function render() {
   showMessage();
-  showFetchingCallBack('.hero-list');
+  // showFetchingCallBack('.hero-list');
+  showFetching();
   // let hero: Hero;
-
-  // try {
-  //   hero = await getHeroAsync(searchEmailElement.value);
-  // } catch (err) {
-  //   console.error(err);
-  //   showMessage(err);
-  // } finally {
-  //   replaceHeroListComponent(hero);
-  // }
-
-  // getHeroTreeCallback(
-  //   searchEmailElement.value,
-  //   (hero: Hero) => {
-  //     replaceHeroListComponent(hero);
-  //   },
-  //   (errorMsg: string) => {
-  //     console.log(errorMsg);
-  //     showMessage(errorMsg);
-  //     replaceHeroListComponent();
-  //   },
-  // );
+  getHeroTreePromise(searchEmailElement.value)
+    .then((hero: Hero) => replaceHeroListComponent(hero))
+    .catch((error: any) => {
+      console.error(error);
+      showMessage(error);
+      replaceHeroListComponent();
+    })
+    .finally(wrapUp);
 }
+
+// try {
+//   hero = await getHeroAsync(searchEmailElement.value);
+// } catch (err) {
+//   console.error(err);
+//   showMessage(err);
+// } finally {
+//   replaceHeroListComponent(hero);
+// }
+
+// getHeroTreeCallback(
+//   searchEmailElement.value,
+//   (hero: Hero) => {
+//     replaceHeroListComponent(hero);
+//   },
+//   (errorMsg: string) => {
+//     console.log(errorMsg);
+//     showMessage(errorMsg);
+//     replaceHeroListComponent();
+//   },
+// );
