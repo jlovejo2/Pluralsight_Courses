@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-import { Hero } from './interfaces';
+import { Hero } from '../interfaces';
 
 export const getHeroAsync = async function(email: string) {
   try {
-    console.log('entered get hero...')
+    console.log('entered get hero...');
     const response = await axios.get(`api/heroes?email=${email.toLowerCase()}`);
     const { data } = response;
-    console.log('data from get: ', data)
+    console.log('data from get: ', data);
     const hero: Hero = data[0];
     return hero;
   } catch (error) {

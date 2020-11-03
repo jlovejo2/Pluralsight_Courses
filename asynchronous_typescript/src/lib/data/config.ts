@@ -9,6 +9,7 @@ const parseList = <T>(response: AxiosResponse) => {
   if (!response.data) return [];
   let list: T[] = response.data;
   if (typeof list !== ' object') {
+    console.log('list type is not an object: ', list);
     list = [];
   }
   return list;
