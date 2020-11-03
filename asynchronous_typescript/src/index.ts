@@ -63,7 +63,15 @@ async function render() {
   //   replaceHeroListComponent(hero);
   // }
 
-  getHeroTreeCallback(searchEmailElement.value, function(hero: Hero) {
-    replaceHeroListComponent(hero);
-  });
+  getHeroTreeCallback(
+    searchEmailElement.value,
+    (hero: Hero) => {
+      replaceHeroListComponent(hero);
+    },
+    (errorMsg: string) => {
+      console.log(errorMsg);
+      showMessage(errorMsg);
+      replaceHeroListComponent();
+    },
+  );
 }

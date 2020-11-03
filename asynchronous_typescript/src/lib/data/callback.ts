@@ -8,22 +8,32 @@ import {
 } from '../interfaces';
 import { apiUrl, parseList } from './config';
 
-export const getHeroTreeCallback = function(
+export const getHeroTreeCallback = (
   email: string,
   callback: Callback<Hero>,
   callbackError?: CallbackError,
-) {
-  getHeroCallback(email, function(hero: Hero) {
-    getOrdersCallback(hero.id, function(orders: Order[]) {
-      hero.orders = orders;
-      getAccountRepCallback(hero.id, function(
-        accountRep: AccountRepresentative,
-      ) {
-        hero.accountRep = accountRep;
-        callback(hero);
-      });
-    });
-  });
+) => {
+  getHeroCallback(
+    email,
+    (hero: Hero) => {
+      getOrdersCallback(
+        hero.id,
+        (orders: Order[]) => {
+          hero.orders = orders;
+          getAccountRepCallback(
+            hero.id,
+            (accountRep: AccountRepresentative) => {
+              hero.accountRep = accountRep;
+              callback(hero);
+            },
+            error => callbackError(error),
+          );
+        },
+        error => callbackError(error),
+      );
+    },
+    error => callbackError(error),
+  );
 };
 
 const getHeroCallback = function(
