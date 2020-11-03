@@ -35,6 +35,7 @@ function createHeroCardFromTemplate(hero: Hero) {
   setText(heroClone, '.description', hero.description);
   setText(heroClone, '.name', hero.name);
   setText(heroClone, '.email', hero.email);
+  setText(heroClone, '.accountrep', hero.accountRep?.name);
   heroClone.querySelector('.card').classList.add(hero.name);
 
   const selector = `.card.${hero.name} .order-area`;
@@ -71,10 +72,10 @@ function createHeroOrders(ordersArea: HTMLElement, hero: Hero) {
 function createHeroOrderItems(order: Order) {
   return order.items.map(item => {
     const itemClone = cloneElementsFromTemplate('order-item-template');
-    setText(itemClone, 'order-number', order.num.toString());
+    setText(itemClone, '.order-number', order.num.toString());
     setText(itemClone, '.item-name', item.name.toString());
     setText(itemClone, '.item-qty', item.qty.toString());
-    setText(itemClone, '.item-prive', item.price.toString());
+    setText(itemClone, '.item-price', item.price.toString());
     return itemClone;
   });
 }
