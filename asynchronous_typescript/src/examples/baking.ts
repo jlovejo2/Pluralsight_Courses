@@ -1,14 +1,4 @@
-const ingredients = [
-  '2 1/4 cups all-purpose flour',
-  '1 teaspoon baking sode',
-  '1 teaspoon salt',
-  '1 cup (2 sticks) butter',
-  '3/4 cup granulated sugar',
-  '3/4 cup packed brown sugar',
-  '1 tespoon vanilla extract',
-  '2 large eggs',
-  '2 cups (12-oz pkg) chocolate chips',
-];
+import { ingredients } from './ingredients';
 
 export function bakeCookies() {
   const bowl = combine(ingredients);
@@ -22,7 +12,7 @@ export function bakeCookies() {
   });
 }
 
-function combine(i: any): object {
+function combine(i: string[]): object {
   const bowl = {};
 
   return bowl;
