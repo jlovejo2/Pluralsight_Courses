@@ -112,12 +112,20 @@ function rejectedPromise() {
   showFetching();
   showMessage();
   // TODO - rejected promise
+  getHeroesViaPromiseReject()
+    .then(showHeroes)
+    .catch(handleErrors)
+    .finally(wrapUp);
 }
 
 function rejectedPromiseShorter() {
   showFetching();
   showMessage();
   // TODO - rejected promise, but shorter
+  getHeroesViaPromiseRejectShorter()
+    .then(showHeroes)
+    .catch(handleErrors)
+    .finally(wrapUp);
 }
 
 async function render() {
