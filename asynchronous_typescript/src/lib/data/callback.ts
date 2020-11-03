@@ -8,7 +8,7 @@ import {
 } from '../interfaces';
 import { apiUrl, parseList } from './config';
 
-export const getHeroTreeCallback = (
+const getHeroTreeCallback = (
   email: string,
   callback: Callback<Hero>,
   callbackError?: CallbackError,
@@ -90,3 +90,24 @@ const getAccountRepCallback = function(
       callbackError(`Oh no! We're unable to fetch the Account Rep`);
     });
 };
+
+//_____________________________
+//-----Promisified Call --------
+//_____________________________
+
+function promisifiedCallBack() {
+  const getHeroTreePromisied = (email: string) => {
+    return new Promise((resolve, reject) => {
+      getHeroTreeCallback(
+        email,
+        (email: Hero) => resolve(hero),
+        (msg?: string) => reject(msg),
+      );
+    });
+  };
+  getHeroTreePromisied('madelyn@acme.com').then(()=> {
+      console.log('next');
+  })
+}
+
+export ( getHeroTreeCallback, promisifiedCallBack);
