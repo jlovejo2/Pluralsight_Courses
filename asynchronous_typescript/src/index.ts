@@ -2,15 +2,23 @@ import './design/index.scss';
 
 import {
   Hero,
-  getHeroAsync,
+  // getHeroAsync,
   showFetching,
   showMessage,
   openModal,
   sayHelloTimer,
-  getHeroTreeCallback,
+  getHeroTreePromise,
+  showFetchingCallBack,
+  // getHeroTreeCallback,
 } from './lib';
 import { replaceHeroListComponent } from './heroes.component';
 import { getDataAfterDelay } from './examples/get-ingredients';
+import {
+  getHeroesViaNewPromise,
+  getHeroesViaPromise,
+  getHeroesViaPromiseReject,
+  getHeroesViaPromiseRejectShorter,
+} from './examples/promise';
 
 const searchEmailElement = document.getElementById(
   'search-email',
@@ -40,6 +48,22 @@ document
   .querySelector('#show-ingredients')
   .addEventListener('click', getIngredients);
 
+document
+  .getElementById('resolved-promise')
+  .addEventListener('click', resolvedPromise);
+
+document
+  .getElementById('resolved-using-promise-ctor')
+  .addEventListener('click', resolvedUsingPromiseConstructor);
+
+document
+  .getElementById('rejected-promise')
+  .addEventListener('click', rejectedPromise);
+
+document
+  .getElementById('rejected-promise-shorter')
+  .addEventListener('click', rejectedPromiseShorter);
+
 function getIngredients() {
   showMessage('Ingredients for baking amazing cookies:', 'Ingredients');
   getDataAfterDelay(1500, showIngredients);
@@ -49,9 +73,56 @@ function showIngredients(ingredients: string[]) {
   ingredients.forEach(i => showMessage(`${i}`, 'Ingredients', true));
 }
 
+function wrapUp() {
+  showFetching(false);
+}
+
+function handleErrors(error: any) {
+  console.error('Oh no! rejected promise!');
+  console.error(error);
+  showMessage(`Something bad happened`, 'Error');
+}
+
+function showHeroes(heroes: Hero[]) {
+  console.table(heroes);
+  showMessage(`Returned ${heroes.length} heroes`);
+  heroes.forEach(h => showMessage(JSON.stringify(h), 'heroes', true));
+}
+
+function resolvedPromise() {
+  showFetching();
+  showMessage();
+  getHeroesViaPromise()
+    .then(showHeroes)
+    .catch(handleErrors)
+    .finally(wrapUp);
+}
+
+function resolvedUsingPromiseConstructor() {
+  showFetching();
+  showMessage();
+  // TODO - get heroes, with new Promise
+  getHeroesViaNewPromise()
+    .then(showHeroes)
+    .catch(handleErrors)
+    .finally(wrapUp);
+}
+
+function rejectedPromise() {
+  showFetching();
+  showMessage();
+  // TODO - rejected promise
+}
+
+function rejectedPromiseShorter() {
+  showFetching();
+  showMessage();
+  // TODO - rejected promise, but shorter
+}
+
 async function render() {
   showMessage();
-  showFetching('.hero-list');
+  showFetchingCallBack('.hero-list');
   // let hero: Hero;
 
   // try {
@@ -63,15 +134,15 @@ async function render() {
   //   replaceHeroListComponent(hero);
   // }
 
-  getHeroTreeCallback(
-    searchEmailElement.value,
-    (hero: Hero) => {
-      replaceHeroListComponent(hero);
-    },
-    (errorMsg: string) => {
-      console.log(errorMsg);
-      showMessage(errorMsg);
-      replaceHeroListComponent();
-    },
-  );
+  // getHeroTreeCallback(
+  //   searchEmailElement.value,
+  //   (hero: Hero) => {
+  //     replaceHeroListComponent(hero);
+  //   },
+  //   (errorMsg: string) => {
+  //     console.log(errorMsg);
+  //     showMessage(errorMsg);
+  //     replaceHeroListComponent();
+  //   },
+  // );
 }
