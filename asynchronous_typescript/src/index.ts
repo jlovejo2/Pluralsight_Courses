@@ -19,6 +19,12 @@ import {
   getHeroesViaPromiseReject,
   getHeroesViaPromiseRejectShorter,
 } from './examples/promise';
+import {
+  getHeroesViaAsyncAwait,
+  getHeroesAndThrow,
+  getHeroesAndTryCatch,
+} from './examples/await';
+import { getHeroTreeAsync } from './lib/data/await';
 
 const searchEmailElement = document.getElementById(
   'search-email',
@@ -63,6 +69,14 @@ document
 document
   .getElementById('rejected-promise-shorter')
   .addEventListener('click', rejectedPromiseShorter);
+
+document
+  .getElementById('async-heroes')
+  .addEventListener('click', renderHeroesAsync);
+
+document
+  .getElementById('async-throw')
+  .addEventListener('click', renderHeroesButThrow);
 
 function getIngredients() {
   showMessage('Ingredients for baking amazing cookies:', 'Ingredients');
@@ -128,9 +142,26 @@ function rejectedPromiseShorter() {
     .finally(wrapUp);
 }
 
+async function renderHeroesAsync() {
+  showFetching();
+  showMessage();
+  // TODO - getHeroesViaAsyncAwait
+}
+
+/**
+ * Get the heroes, but an error is thrown!
+ * Handle errors gracefully?
+ * Always end by turning off progress indicator.
+ */
+async function renderHeroesButThrow() {
+  showFetching();
+  showMessage();
+  // TODO - getHeroesAndThrow
+}
+
 async function render() {
   showMessage();
-  // showFetchingCallBack('.hero-list');
+  showFetchingCallBack('.hero-list');
   showFetching();
   // let hero: Hero;
   getHeroTreePromise(searchEmailElement.value)
