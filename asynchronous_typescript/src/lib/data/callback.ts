@@ -8,6 +8,24 @@ import {
 } from '../interfaces';
 import { apiUrl, parseList } from './config';
 
+export const getHeroTreeCallback = function(
+  email: string,
+  callback: Callback<Hero>,
+  callbackError?: CallbackError,
+) {
+  getHeroCallback(email, function(hero: Hero) {
+    getOrdersCallback(hero.id, function(orders: Order[]) {
+      hero.orders = orders;
+      getAccountRepCallback(hero.id, function(
+        accountRep: AccountRepresentative,
+      ) {
+        hero.accountRep = accountRep;
+        callback(hero);
+      });
+    });
+  });
+};
+
 const getHeroCallback = function(
   email: string,
   callback: Callback<Hero>,
