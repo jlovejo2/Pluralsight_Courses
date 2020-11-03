@@ -100,14 +100,14 @@ function promisifiedCallBack() {
     return new Promise((resolve, reject) => {
       getHeroTreeCallback(
         email,
-        (email: Hero) => resolve(hero),
+        (hero: Hero) => resolve(hero),
         (msg?: string) => reject(msg),
       );
     });
   };
-  getHeroTreePromisied('madelyn@acme.com').then(()=> {
-      console.log('next');
-  })
+  getHeroTreePromisied('madelyn@acme.com').then(() => {
+    console.log('next');
+  });
 }
 
-export ( getHeroTreeCallback, promisifiedCallBack);
+export default { getHeroTreeCallback, promisifiedCallBack };
