@@ -179,7 +179,7 @@ async function render() {
   showMessage();
   showFetchingCallBack('.hero-list');
   showFetching();
-  // let hero: Hero;
+  let hero: Hero;
   getHeroTreePromise(searchEmailElement.value)
     .then((hero: Hero) => replaceHeroListComponent(hero))
     .catch((error: any) => {
@@ -188,6 +188,16 @@ async function render() {
       replaceHeroListComponent();
     })
     .finally(wrapUp);
+
+  try {
+    hero = await getHeroTreeAsync(searchEmailElement.value);
+    replaceHeroListComponent(hero);
+  } catch (error) {
+    console.error(error);
+    showMessage(error);
+  } finally {
+    wrapUp();
+  }
 }
 
 // try {

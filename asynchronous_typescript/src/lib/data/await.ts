@@ -46,7 +46,7 @@ const getShippingStatusAsync = async function(orderNumber: number) {
   // TODO
   try {
     const response = await axios.get(
-      `${apiUrl}/shippinsgtatuses/${orderNumber}`,
+      `${apiUrl}/shippingstatuses/${orderNumber}`,
     );
     const data = parseList<ShippingStatus>(response);
     return data[0];
@@ -76,6 +76,8 @@ const getHeroTreeAsync = async function(email: string) {
 
   for (const ss of shippingStatuses) {
     const order = hero.orders.find((o: Order) => o.num === ss.orderNum);
+    console.log('shipping status: ', ss);
+    console.log('order : ', order);
     order.shippingStatus = ss;
   }
   return hero;
