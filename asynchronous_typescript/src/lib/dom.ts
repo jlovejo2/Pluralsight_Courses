@@ -37,10 +37,18 @@ export function showMessage(text = '', title = 'Info', append = false) {
   setText(el, '.message-body', newText);
 }
 
-export function showFetching(selector: string) {
+//show fetching for module 4
+export function showFetchingCallBack(selector: string) {
   const progressClone = cloneElementsFromTemplate('progress-template');
   const heroPlaceholder = document.querySelector(selector);
   heroPlaceholder.replaceWith(progressClone);
+}
+
+export function showFetching(show = true) {
+  if (show) {
+    clearList();
+  }
+  document.getElementById('progress').style.display = show ? 'block' : 'none';
 }
 
 export function clearList() {
