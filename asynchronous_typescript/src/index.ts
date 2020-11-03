@@ -7,6 +7,7 @@ import {
   showMessage,
   openModal,
   sayHelloTimer,
+  getHeroTreeCallback,
 } from './lib';
 import { replaceHeroListComponent } from './heroes.component';
 import { getDataAfterDelay } from './examples/get-ingredients';
@@ -41,21 +42,28 @@ document
 
 function getIngredients() {
   showMessage('Ingredients for baking amazing cookies:', 'Ingredients');
-  getDataAfterDelay(1500, function(ingredients: string[]) {
-    ingredients.forEach(i => showMessage(`${i}`, 'Ingredients', true));
-  });
+  getDataAfterDelay(1500, showIngredients);
+}
+
+function showIngredients(ingredients: string[]) {
+  ingredients.forEach(i => showMessage(`${i}`, 'Ingredients', true));
 }
 
 async function render() {
   showMessage();
   showFetching('.hero-list');
-  let hero: Hero;
-  try {
-    hero = await getHeroAsync(searchEmailElement.value);
-  } catch (err) {
-    console.error(err);
-    showMessage(err);
-  } finally {
+  // let hero: Hero;
+
+  // try {
+  //   hero = await getHeroAsync(searchEmailElement.value);
+  // } catch (err) {
+  //   console.error(err);
+  //   showMessage(err);
+  // } finally {
+  //   replaceHeroListComponent(hero);
+  // }
+
+  getHeroTreeCallback(searchEmailElement.value, function(hero: Hero) {
     replaceHeroListComponent(hero);
-  }
+  });
 }
