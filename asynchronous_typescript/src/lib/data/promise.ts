@@ -19,7 +19,9 @@ const getHeroTreePromise = function(searchEmail: string) {
     .then((hero: Hero) =>
       Promise.all([getOrdersPromise(hero.id), getAccountRepPromise(hero.id)]),
     )
-    .then((results: [Order[], AccountRepresentative]) => mergeData(results));
+    .then((results: [Order[], AccountRepresentative]) => {
+      return mergeData(results);
+    });
 
   function mergeData(result: [Order[], AccountRepresentative]): Hero {
     const [orders, accountRep] = result;
@@ -29,6 +31,7 @@ const getHeroTreePromise = function(searchEmail: string) {
     if (accountRep) {
       hero.accountRep = accountRep;
     }
+    console.log('Hero data inside mergeData: ', hero);
     return hero;
   }
 };
@@ -40,6 +43,7 @@ const getHeroPromise = (email: string) => {
   return axios
     .get<Hero[]>(`${apiUrl}/heroes?email=${email}`)
     .then((response: AxiosResponse<Hero[]>) => {
+      console.log('this is the hero: ', response);
       const data = parseList<Hero>(response);
       const hero = data[0];
       return hero;
@@ -55,7 +59,10 @@ const getOrdersPromise = function(heroId: number) {
   // TODO
   return axios
     .get<Order[]>(`${apiUrl}/orders/${heroId}`)
-    .then((response: AxiosResponse<Order[]>) => parseList<Order>(response))
+    .then((response: AxiosResponse<Order[]>) => {
+      console.log('these are the orders: ', response);
+      return parseList<Order>(response);
+    })
     .catch((error: AxiosError) => handleAxiosErrors(error, 'Orders'));
 };
 
@@ -65,8 +72,9 @@ const getOrdersPromise = function(heroId: number) {
 const getAccountRepPromise = function(heroId: number) {
   // TODO
   return axios
-    .get<AccountRepresentative>(`${apiUrl}/accountreps/=${heroId}`)
+    .get<AccountRepresentative>(`${apiUrl}/accountreps/${heroId}`)
     .then((response: AxiosResponse<AccountRepresentative>) => {
+      console.log('this is the account rep: ', response);
       const data = parseList<AccountRepresentative>(response);
       return data[0];
     })
