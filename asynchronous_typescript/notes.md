@@ -22,8 +22,6 @@ What is Asynchronous code?
   };
   ```
 
-````
-
 ```typescript
 const getHeroTreeCallback = function(email: string, callback: any) {
   getHeroCallback(email, hero => {
@@ -36,15 +34,25 @@ const getHeroTreeCallback = function(email: string, callback: any) {
     });
   });
 };
-````
+```
 
 - Will experience these in setInterval, setTimeout, modals, etc.
 
 - Promises
 
+  - Promise represents the eventual completion(or failure) of an asynchronous operation
+
   - Allow us to take asynchronous activites and use .then() to call our code
 
-    Example
+  ```typescript
+  Promise.resolve;
+  //promise has completed successfully
+
+  Promise.reject;
+  //promise has failed
+  ```
+
+  Example
 
   ```typescript
   const getHeroTreeCallback = function(searchEmail: string) {
@@ -60,9 +68,25 @@ const getHeroTreeCallback = function(email: string, callback: any) {
           }
   ```
 
+  - This example shows another set up with a handling promises. Called 'chaining'
+
+  ```typescript
+  function example() {
+    return getHeroes()
+      .then((hero: Hero) => getOrders(hero))
+      .then((hero: Hero) => showHero(hero))
+      .catch((error: any) => showMessage(error))
+      .finally(() => {
+        showProgressbar(false);
+      });
+  }
+  ```
+
 - Async Await
 
   - Can treat asychronous coding like it is synchronous coding
+  - wait for the async function to fulfill
+    -must be in scope of async function
 
   Example
 

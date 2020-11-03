@@ -80,6 +80,13 @@ const getHeroTreeAsync = async function(email: string) {
     console.log('order : ', order);
     order.shippingStatus = ss;
   }
+
+  //Another approach to promise.all
+  //   for await (const ss of getAllStatusesAsync) {
+  //     const order = hero.orders.find((o: Order) => o.num === ss.orderNum);
+  //     order.shippingStatus = ss;
+  //   }
+
   return hero;
 };
 
