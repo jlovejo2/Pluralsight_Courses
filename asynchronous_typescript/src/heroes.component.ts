@@ -1,6 +1,12 @@
-import { Hero, createDiv, cloneElementsFromTemplate, setText } from './lib';
+import {
+  Hero,
+  Order,
+  createDiv,
+  cloneElementsFromTemplate,
+  setText,
+} from './lib';
 
-export function replaceHeroListComponent(hero?: Hero) {
+function replaceHeroListComponent(hero?: Hero) {
   const heroPlaceHolder = document.querySelector('.hero-list');
   const el = hero ? createList() : createNoneFound();
 
@@ -30,5 +36,47 @@ function createHeroCardFromTemplate(hero: Hero) {
   setText(heroClone, '.name', hero.name);
   setText(heroClone, '.email', hero.email);
   heroClone.querySelector('.card').classList.add(hero.name);
+
+  const selector = `.card.${hero.name} .order-area`;
+  const ordersArea = heroClone.querySelector(selector) as HTMLElement;
+
+  const button = heroClone.querySelector('.card-content button.expand-button');
+  button.addEventListener('click', () => {
+    if (ordersArea) {
+      ordersArea.style.display =
+        ordersArea.style.display === 'none' ? 'block' : 'none';
+    }
+  });
+
+  createHeroOrders(ordersArea, hero);
+
   return heroClone;
 }
+
+function createHeroOrders(ordersArea: HTMLElement, hero: Hero) {
+  if (!hero.orders) {
+    return;
+  }
+
+  hero.orders.forEach(order => {
+    const orderClone = cloneElementsFromTemplate('order-template');
+    setText(orderClone, '.order-number', order.num.toString());
+    setText(orderClone, '.status', order.shippingStatus?.status ?? 'n/a');
+    const itemClones = createHeroOrderItems(order);
+    itemClones.forEach(ic => orderClone.appendChild(ic));
+    ordersArea.appendChild(orderClone);
+  });
+}
+
+function createHeroOrderItems(order: Order) {
+  return order.items.map(item => {
+    const itemClone = cloneElementsFromTemplate('order-item-template');
+    setText(itemClone, 'order-number', order.num.toString());
+    setText(itemClone, '.item-name', item.name.toString());
+    setText(itemClone, '.item-qty', item.qty.toString());
+    setText(itemClone, '.item-prive', item.price.toString());
+    return itemClone;
+  });
+}
+
+export { replaceHeroListComponent };

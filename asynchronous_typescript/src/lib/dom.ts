@@ -42,3 +42,10 @@ export function showFetching(selector: string) {
   const heroPlaceholder = document.querySelector(selector);
   heroPlaceholder.replaceWith(progressClone);
 }
+
+export function clearList() {
+  const heroPlaceholder = document.querySelector('.hero-list');
+  const div = createDiv('hero-list');
+  div.innerText = '';
+  heroPlaceholder.replaceWith(div);
+}
